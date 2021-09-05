@@ -5,7 +5,7 @@ import java.util.concurrent.Semaphore;
 
 public class b {
     static Thread th1, th2;
-
+    private static final Semaphore sem = new Semaphore(1);
     public static void main(String[] args) {
         JFrame win = new JFrame();
         win.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -17,9 +17,9 @@ public class b {
     }
 
     private static JPanel getjPanel() {
-        Semaphore sem = new Semaphore(1);
+
         JPanel panel = new JPanel();
-        JTextField text = new JTextField("                     ");
+        JTextField text = new JTextField("                                            ");
         JButton start1 = new JButton("Start first Thread");
         JButton start2 = new JButton("Start second Thread");
         JButton stop1 = new JButton("Stop first Thread");
@@ -33,6 +33,7 @@ public class b {
                             sem.acquire();
                             slider.setValue(th1.getPriority() * 10);
                             text.setText("busy with a first thread");
+                            stop2.setEnabled(false);
                         } catch (InterruptedException interruptedException) {
                             interruptedException.printStackTrace();
                         }
@@ -46,8 +47,9 @@ public class b {
                     () -> {
                         try {
                             sem.acquire();
-                            slider.setValue(th2.getPriority() * 10);
+                            slider.setValue(th2.getPriority() * 10 - 10);
                             text.setText("busy with a second thread");
+                            stop1.setEnabled(false);
                         } catch (InterruptedException interruptedException) {
                             interruptedException.printStackTrace();
                         }
@@ -56,12 +58,14 @@ public class b {
             th2.start();
         });
         stop1.addActionListener(e -> {
-            text.setText("free");
+            text.setText("  ");
             sem.release();
+            stop2.setEnabled(true);
         });
         stop2.addActionListener(e -> {
             sem.release();
-            text.setText("free");
+            text.setText("   ");
+            stop1.setEnabled(true);
 
         });
 
