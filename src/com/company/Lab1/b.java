@@ -32,7 +32,7 @@ public class b {
                         try {
                             sem.acquire();
                             slider.setValue(th1.getPriority() * 10);
-                            text.setText("first");
+                            text.setText("busy with a first thread");
                         } catch (InterruptedException interruptedException) {
                             interruptedException.printStackTrace();
                         }
@@ -47,7 +47,7 @@ public class b {
                         try {
                             sem.acquire();
                             slider.setValue(th2.getPriority() * 10);
-                            text.setText("second");
+                            text.setText("busy with a second thread");
                         } catch (InterruptedException interruptedException) {
                             interruptedException.printStackTrace();
                         }
