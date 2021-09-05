@@ -61,11 +61,13 @@ public class b {
             text.setText("  ");
             sem.release();
             stop2.setEnabled(true);
+            th1.interrupt();
         });
         stop2.addActionListener(e -> {
             sem.release();
             text.setText("   ");
             stop1.setEnabled(true);
+            th2.interrupt();
 
         });
 
