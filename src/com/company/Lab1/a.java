@@ -49,7 +49,7 @@ public class a {
                         }
                     });
             th1.setPriority(Thread.MIN_PRIORITY);
-            th2.setPriority(Thread.NORM_PRIORITY);
+            th2.setPriority(Thread.MAX_PRIORITY);
             th1.start();
             th2.start();
         });
