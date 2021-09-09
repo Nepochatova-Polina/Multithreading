@@ -6,6 +6,7 @@ import java.util.concurrent.Semaphore;
 public class b {
     static Thread th1, th2;
     private static final Semaphore sem = new Semaphore(1);
+
     public static void main(String[] args) {
         JFrame win = new JFrame();
         win.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -30,10 +31,12 @@ public class b {
             th1 = new Thread(
                     () -> {
                         try {
-                            sem.acquire();
-                            slider.setValue(th1.getPriority() * 10);
-                            text.setText("busy with a first thread");
-                            stop2.setEnabled(false);
+                            while (!th1.isInterrupted()) {
+                                sem.acquire();
+                                slider.setValue(th1.getPriority() * 10);
+                                text.setText("busy with a first thread");
+                                stop2.setEnabled(false);
+                            }
                         } catch (InterruptedException interruptedException) {
                             interruptedException.printStackTrace();
                         }
@@ -46,10 +49,12 @@ public class b {
             th2 = new Thread(
                     () -> {
                         try {
-                            sem.acquire();
-                            slider.setValue(th2.getPriority() * 10 - 10);
-                            text.setText("busy with a second thread");
-                            stop1.setEnabled(false);
+                            while (!th2.isInterrupted()) {
+                                sem.acquire();
+                                slider.setValue(th2.getPriority() * 10 - 10);
+                                text.setText("busy with a second thread");
+                                stop1.setEnabled(false);
+                            }
                         } catch (InterruptedException interruptedException) {
                             interruptedException.printStackTrace();
                         }

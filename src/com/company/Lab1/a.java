@@ -19,9 +19,9 @@ public class a {
     private static JPanel getjPanel() {
         JPanel panel = new JPanel();
         JTextField text = new JTextField("                  ");
-        JButton btn = new JButton("Start");
+        JButton start = new JButton("Start");
         JSlider slider = new JSlider();
-        btn.addActionListener(e -> {
+        start.addActionListener(e -> {
             th2 = new Thread(() -> {
                 while (true) {
                     try {
@@ -35,16 +35,18 @@ public class a {
                     () -> {
                         while (true) {
                             text.setText(th1.getPriority() + " : " + th2.getPriority());
-                            if (th1.getPriority() > th2.getPriority()) {
-                                slider.setValue(100 - th1.getPriority() * 10);
-                            } else {
-                                slider.setValue(th2.getPriority() * 10);
-                            }
-                            try {
-                                Thread.sleep(1000);
+                            synchronized (slider) {
+                                if (th1.getPriority() > th2.getPriority()) {
+                                    slider.setValue(100 - th1.getPriority() * 10);
+                                } else {
+                                    slider.setValue(th2.getPriority() * 10);
+                                }
+                                try {
+                                    Thread.sleep(1000);
 
-                            } catch (InterruptedException interruptedException) {
-                                interruptedException.printStackTrace();
+                                } catch (InterruptedException interruptedException) {
+                                    interruptedException.printStackTrace();
+                                }
                             }
                         }
                     });
@@ -69,7 +71,7 @@ public class a {
         panel.add(firstPlus);
         panel.add(secondMinus);
         panel.add(secondPlus);
-        panel.add(btn);
+        panel.add(start);
         panel.add(text);
         panel.add(slider);
         return panel;
