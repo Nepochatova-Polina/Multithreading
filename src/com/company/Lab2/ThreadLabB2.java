@@ -1,10 +1,12 @@
 package com.company.Lab2;
 
 import java.util.Random;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class ThreadLab {
+public class ThreadLabB2 {
     private static final int[][] matrix = new int[50][50];
     private static final AtomicInteger resultLine = new AtomicInteger(-1);
     private static final AtomicInteger currentLine = new AtomicInteger(-1);
@@ -20,10 +22,10 @@ public class ThreadLab {
         matrix[random.nextInt(50)][random.nextInt(50)] = 1;
 
         Runnable findValue = () -> {
-            long threadId = Thread.currentThread().getId();
+            String name = Thread.currentThread().getName();
             while (isRunning.get()) {
                 int currentID = getNextLine();
-                System.out.println("Thread # " + threadId + " is working with the line #: " + currentID);
+                System.out.println(name + " is working with the line #: " + currentID);
                 for (int i = 0; i < 50; i++) {
                     if (matrix[currentID][i] == 1) {
                         isRunning.set(false);
@@ -33,15 +35,17 @@ public class ThreadLab {
                     }
                 }
             }
-            System.out.println("Stopped.");
+            System.out.println(name + " stopped.");
         };
 
-        new Thread(findValue).start();
-        new Thread(findValue).start();
-        new Thread(findValue).start();
+        ExecutorService executorService = Executors.newFixedThreadPool(3);
+        for (int i = 0; i < 3; i++) {
+            executorService.submit(findValue);
+        }
+        executorService.shutdown();
     }
 
-    static synchronized int getNextLine() {
+    static int getNextLine() {
         return currentLine.incrementAndGet();
     }
 }
