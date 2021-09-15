@@ -30,6 +30,7 @@ public class ThreadLabA {
                 }
             }
             System.out.println(name + " stopped.");
+
         };
 
         new Thread(findValue, "Thread1").start();
