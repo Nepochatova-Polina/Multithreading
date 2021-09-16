@@ -40,7 +40,7 @@ func findValueInMatrix(currentLineCh chan line) {
 		for i := 0; i < 50; i++ {
 			if line.line[i] == 1 {
 				resultLineID = line.id
-				fmt.Println(line.id)
+				fmt.Println("result find in line #:", line.id)
 				fmt.Println(line.line)
 				break
 			}

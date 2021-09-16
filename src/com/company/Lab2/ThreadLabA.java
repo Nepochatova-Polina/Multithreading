@@ -39,10 +39,6 @@ public class ThreadLabA {
     }
 
     static synchronized int getNextLine() {
-//        if (currentLine >= 50) {
-//            isRunning = false;
-//            return 0;
-//        }
         return ++currentLine;
     }
 }

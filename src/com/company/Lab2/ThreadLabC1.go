@@ -25,7 +25,7 @@ func main() {
 		go findValue()
 	}
 	wg.Wait()
-	fmt.Println(result)
+	fmt.Println("Result find in line #:", result)
 	fmt.Println("The End")
 
 }
@@ -45,7 +45,6 @@ func findValue() {
 		for j := 0; j < 50; j++ {
 			if matrix[currentID][j] == 1 {
 				result = currentID
-				fmt.Println(currentID)
 				break
 			}
 		}
