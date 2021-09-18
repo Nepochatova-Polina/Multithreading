@@ -1,9 +1,8 @@
 package com.company.Lab3;
 
-;
+
 import java.util.Arrays;
 import java.util.Random;
-import java.util.concurrent.Semaphore;
 
 
 public class ThreadLab3A {
