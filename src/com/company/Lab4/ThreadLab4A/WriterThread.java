@@ -6,7 +6,7 @@ import java.util.Scanner;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
-public class WriterThread {
+public class WriterThread  extends Thread  {
 
 
     public void ReadFile(ReadWriteLock lock) {
@@ -75,4 +75,9 @@ public class WriterThread {
         ReadFile(lock);
     }
 
+    @Override
+    public void run() {
+//        this.AddIntoFile("Курочкина Ольга Ивановна +380000000012",lock);
+//        this.DeleteFromFile("Курочкина Ольга Ивановна +380000000012",lock);
+    }
 }

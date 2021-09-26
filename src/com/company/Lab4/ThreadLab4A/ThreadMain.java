@@ -11,9 +11,9 @@ public class ThreadMain {
 
     public static void main(String[] args) throws IOException {
         ReadWriteLock lock = new ReentrantReadWriteLock();
-        ReaderThread thread = new ReaderThread();
-        WriterThread thread1 = new WriterThread();
 
-        thread1.AddIntoFile("Курочкина Ольга Ивановна +380000000012",lock);
+//        thread1.AddIntoFile("Курочкина Ольга Ивановна +380000000012",lock);
+        WriterThread thread1 = (WriterThread) new Thread("ThreadW1");
+        WriterThread thread2 = (WriterThread) new Thread("ThreadW2");
     }
 }

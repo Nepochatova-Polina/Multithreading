@@ -4,9 +4,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.util.concurrent.locks.ReadWriteLock;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
 
-public class ReaderThread {
+public class ReaderThread extends Thread {
 
     public void FindInFileByName(String secondNname, ReadWriteLock lock) {
         lock.readLock().lock();
@@ -43,5 +42,10 @@ public class ReaderThread {
         } finally {
             lock.readLock().unlock();
         }
+    }
+
+    @Override
+    public void run() {
+        super.run();
     }
 }
