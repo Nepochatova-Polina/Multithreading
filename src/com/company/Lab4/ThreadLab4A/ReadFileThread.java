@@ -6,6 +6,13 @@ import java.util.concurrent.locks.ReadWriteLock;
 
 class ReadFileThread implements Runnable  {
 
+    public void startThread() {
+        Thread thr = new Thread(this, "ReadThread1");
+        Thread thr2 = new Thread(this, "ReadThread2");
+        thr.start();
+        thr2.start();
+    }
+
     public void ReadFile(ReadWriteLock lock) {
         lock.readLock().lock();
         try {
@@ -24,6 +31,6 @@ class ReadFileThread implements Runnable  {
 
     @Override
     public void run() {
-
+        ReadFile(ThreadMain.lock);
     }
 }
