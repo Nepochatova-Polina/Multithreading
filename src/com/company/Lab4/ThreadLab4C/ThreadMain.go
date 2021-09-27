@@ -1,23 +1,29 @@
 package main
 
 import (
-	"fmt"
+	"math/rand"
 	_ "math/rand"
-	"os"
 	"sync"
 )
 
 var waitGroup sync.WaitGroup
+var matrix [5][5]int
+var m sync.RWMutex
 
 func main() {
-	//var matrix [20][20]int
-
-	//waitGroup.Add(1)
-	file, err := os.OpenFile("Graph.txt", os.O_RDONLY, 0666)
-	if err != nil {
-		fmt.Println("Unable to create file:", err)
-		os.Exit(1)
-		defer file.Close()
+	for i := 0; i < 14; i++ {
+		x := rand.Intn(5)
+		y := rand.Intn(5)
+		num := rand.Intn(10)
+		matrix[x][y] = num
+		matrix[y][x] = num
 	}
-	//waitGroup.Wait()
+	for i := 0; i < 5; i++ {
+		for j := 0; j < 5; j++ {
+			print(matrix[i][j])
+		}
+		print("\n")
+	}
+	//waitGroup.Add(1)
+
 }
