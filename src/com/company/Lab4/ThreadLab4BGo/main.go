@@ -24,8 +24,8 @@ func main() {
 		}
 	}
 	go Gardener()
-	go Nature()
-	go WriteToCOnsole()
+	//go Nature()
+	//go WriteToCOnsole()
 	go WriteIntoFile()
 	waitGroup.Wait()
 
@@ -76,7 +76,7 @@ func WriteToCOnsole() {
 
 func WriteIntoFile() {
 	for {
-		m.RLock()
+		m.Lock()
 		print("Updating file...\n")
 		var x string
 		file, err := os.Open("GoGarden.txt")
@@ -89,11 +89,12 @@ func WriteIntoFile() {
 			for j := 0; j < 5; j++ {
 				x += strconv.Itoa(matrix[i][j])
 			}
+			x += " "
 		}
 		data := []byte(x)
 		err = ioutil.WriteFile("GoGarden.txt", data, 0)
 		print("Work Done!\n")
-		m.RUnlock()
+		m.Unlock()
 		time.Sleep(5 * time.Second)
 	}
 }
