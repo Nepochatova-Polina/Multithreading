@@ -2,7 +2,6 @@ package com.company.Lab4.ThreadLab4A;
 
 
 import java.io.*;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 

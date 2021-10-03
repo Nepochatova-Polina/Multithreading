@@ -1,15 +1,17 @@
 package com.company.Lab4.ThreadLab4C;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 
-public class mainThread {
+public class mainThread1 {
     private static final Random random = new Random();
     public static int[][] matrix = new int[5][5];
     public static List<List<Integer>> PathBtwnCities = new ArrayList<>();
-    public static AtomicBoolean ReadMutex = new AtomicBoolean(false);
-    public static AtomicBoolean WriteMutex = new AtomicBoolean(false);
+    public static boolean ReadMutex = false;
+    public static boolean WriteMutex = false;
 
     public static void main(String[] args) {
 
@@ -30,8 +32,8 @@ public class mainThread {
         Thread ChangePrice = new Thread(() -> {
             List<Integer> currentList;
             while (true) {
-                if (!WriteMutex.get() && !ReadMutex.get()) {
-                    WriteMutex.set(true);
+                if (!getWriteMutex() && !getReadMutex()) {
+                    setWriteMutex(true);
                     try {
                         System.out.println(Thread.currentThread().getName() + " :Changing price info...");
                         int x = random.nextInt(PathBtwnCities.size());
@@ -46,7 +48,7 @@ public class mainThread {
                         currentList.set(x, newPrice);
                         PathBtwnCities.set(y, currentList);
 
-                        WriteMutex.set(false);
+                        setWriteMutex(false);
                         System.out.println(Thread.currentThread().getName() + " :Work Done!");
                         Thread.sleep(3000);
                     } catch (InterruptedException e) {
@@ -59,8 +61,8 @@ public class mainThread {
         Thread AddDeleteCity = new Thread(() -> {
             int city;
             while (true) {
-                if (!WriteMutex.get() && !ReadMutex.get()) {
-                    WriteMutex.set(true);
+                if (!getWriteMutex() && !getReadMutex()) {
+                    setWriteMutex(true);
                     try {
                         System.out.println(Thread.currentThread().getName() + " :Add new city info...");
                         addCity();
@@ -70,7 +72,7 @@ public class mainThread {
                         city = random.nextInt(PathBtwnCities.size());
                         deleteCity(city);
                         System.out.println(Thread.currentThread().getName() + " :Work Done!");
-                        WriteMutex.set(false);
+                        setWriteMutex(false);
                         Thread.sleep(3000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
@@ -81,8 +83,8 @@ public class mainThread {
         Thread AddDeletePath = new Thread(() -> {
             int x, y;
             while (true) {
-                if (!WriteMutex.get() && !ReadMutex.get()) {
-                    WriteMutex.set(true);
+                if (!getWriteMutex() && !getReadMutex()) {
+                    setWriteMutex(true);
                     try {
                         System.out.println(Thread.currentThread().getName() + " :Add a new route...");
                         addPath();
@@ -92,7 +94,7 @@ public class mainThread {
                         x = random.nextInt(PathBtwnCities.size());
                         y = random.nextInt(PathBtwnCities.size());
                         deletePath(x, y);
-                        WriteMutex.set(false);
+                        setWriteMutex(false);
                         System.out.println(Thread.currentThread().getName() + " :Route deleted");
                         Thread.sleep(3000);
                     } catch (InterruptedException e) {
@@ -104,8 +106,8 @@ public class mainThread {
         Thread CountPrice = new Thread(() -> {
             List<Integer> currentList;
             while (true) {
-                if (!WriteMutex.get()) {
-                    ReadMutex.set(true);
+                if (!getWriteMutex()) {
+                    setReadMutex(true);
                     try {
                         System.out.println(Thread.currentThread().getName() + " :Counting price info...");
                         int x = random.nextInt(PathBtwnCities.size());
@@ -114,7 +116,7 @@ public class mainThread {
                         if (currentList.get(y) != 0) {
                             System.out.println(Thread.currentThread().getName() + " :Your ticket costs " + currentList.get(y));
                         }
-                        ReadMutex.set(false);
+                        setReadMutex(false);
                         System.out.println(Thread.currentThread().getName() + " :Work Done!");
                         Thread.sleep(3000);
                     } catch (InterruptedException e) {
@@ -123,8 +125,8 @@ public class mainThread {
                 }
             }
         });
-        ChangePrice.start();
         AddDeleteCity.start();
+        ChangePrice.start();
         AddDeletePath.start();
         CountPrice.start();
 
@@ -174,13 +176,14 @@ public class mainThread {
     public static void deletePath(int x, int y) {
         List<Integer> currentList;
         currentList = PathBtwnCities.get(x);
-            currentList.set(y, 0);
-            PathBtwnCities.set(x, currentList);
-            currentList = PathBtwnCities.get(y);
-            currentList.set(x, 0);
-            PathBtwnCities.set(y, currentList);
+        currentList.set(y, 0);
+        PathBtwnCities.set(x, currentList);
+        currentList = PathBtwnCities.get(y);
+        currentList.set(x, 0);
+        PathBtwnCities.set(y, currentList);
     }
-    public static void show(){
+
+    public static void show() {
         List<Integer> currentList;
         StringBuilder array = new StringBuilder();
         for (List<Integer> pathBtwnCity : PathBtwnCities) {
@@ -193,4 +196,8 @@ public class mainThread {
         }
     }
 
+    public static synchronized boolean getWriteMutex() {return WriteMutex;}
+    public static synchronized boolean getReadMutex() {return ReadMutex;}
+    public static synchronized void setWriteMutex(boolean exp) {WriteMutex = exp;}
+    public static synchronized void setReadMutex(boolean exp) {ReadMutex = exp;}
 }
