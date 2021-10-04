@@ -24,8 +24,8 @@ func main() {
 		}
 	}
 	go Gardener()
-	//go Nature()
-	//go WriteToCOnsole()
+	go Nature()
+	go WriteToCOnsole()
 	go WriteIntoFile()
 	waitGroup.Wait()
 
