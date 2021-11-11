@@ -1,0 +1,10 @@
+<!ELEMENT MusicShop (Item+)>
+        <!ELEMENT Item (artistName,Albums)>
+        <!ELEMENT artistName (#PCDATA)>
+        <!ELEMENT Albums (Album+)>
+        <!ELEMENT Album (albumID,albumName,numOfSongs,numOfCopies,type)>
+        <!ELEMENT albumID (#PCDATA)>
+        <!ELEMENT albumName (#PCDATA)>
+        <!ELEMENT numOfSongs (#PCDATA)>
+        <!ELEMENT numOfCopies (#PCDATA)>
+        <!ELEMENT type (#PCDATA)>

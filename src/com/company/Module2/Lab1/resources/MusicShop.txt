@@ -1,0 +1,30 @@
+Artist Name: Petroff
+Albums
+Album Name: Romashki
+ID: 33333
+Type: mini
+Num of songs: 5
+Num of Copies: 105
+
+
+Artist Name: Vasiliev
+Albums
+Album Name: Album1
+ID: 44444
+Type: mini
+Num of songs: 7
+Num of Copies: 333
+
+Album Name: Album2
+ID: 55555
+Type: mini
+Num of songs: 5
+Num of Copies: 343
+
+Album Name: Album3
+ID: 66666
+Type: full
+Num of songs: 12
+Num of Copies: 433
+
+

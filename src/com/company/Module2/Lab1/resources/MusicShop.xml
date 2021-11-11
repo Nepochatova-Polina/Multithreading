@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE MusicShop SYSTEM "MusicShop.dtd">
+<MusicShop>
+    <Item>
+        <artistName>Ivanushka</artistName>
+        <Albums>
+            <Album>
+                <albumID>269422</albumID>
+                <albumName>Aduvanchiki</albumName>
+                <numOfSongs>22</numOfSongs>
+                <numOfCopies>1095</numOfCopies>
+                <type>full</type>
+            </Album>
+            <Album>
+                <albumID>22222</albumID>
+                <albumName>Vasilki</albumName>
+                <numOfSongs>32</numOfSongs>
+                <numOfCopies>115</numOfCopies>
+                <type>full</type>
+            </Album>
+        </Albums>
+    </Item>
+    <Item>
+        <artistName>Petroff</artistName>
+        <Albums>
+            <Album>
+                <albumID>33333</albumID>
+                <albumName>Romashki</albumName>
+                <numOfSongs>5</numOfSongs>
+                <numOfCopies>105</numOfCopies>
+                <type>mini</type>
+            </Album>
+        </Albums>
+    </Item>
+</MusicShop>
