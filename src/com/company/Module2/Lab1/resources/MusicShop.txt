@@ -1,10 +1,16 @@
-Artist Name: Petroff
+Artist Name: Ivanushka
 Albums
-Album Name: Romashki
-ID: 33333
-Type: mini
-Num of songs: 5
-Num of Copies: 105
+Album Name: Vasilki
+ID: 22222
+Type: full
+Num of songs: 76
+Num of Copies: 115
+
+Album Name: Vasilki
+ID: 22222
+Type: full
+Num of songs: 76
+Num of Copies: 115
 
 
 Artist Name: Vasiliev
